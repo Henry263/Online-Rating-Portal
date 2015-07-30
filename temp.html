@@ -1,0 +1,882 @@
+
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+
+</style>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+<script type='text/javascript'>		
+
+            var maxNumOfStars = 5;
+            var latest_scores = [];
+            var latest_semesters = [];
+            var total_samples = 0;
+            var course_num = 0;
+			var prfidglobal = 0;				
+			var downloaded_latest_scores = [];
+			var downloaded_latest_semesters = [];
+			var usernamedb = 0;
+			var studentID = 0;
+			var course_id = 0;
+						
+            $(document).ready(function() {
+             
+            $("#afterpost").html('');
+            
+            	/* starting of code */
+            	var tmp = window.location.search.substring(1).split("=");
+    			var profid= tmp[1];
+    			prfidglobal = tmp[1];
+            	alert(profid);
+            	//alert(tmp);
+            	       
+            	 $.ajax({
+			                type: "GET",
+			                //contentType: 'application/json',
+               				//dataType: "json",
+			              // url: "http://192.168.56.101/profilepageprofdata.php",
+			                url: "http://http://localhost:8888/phpfiles/imagetest.php",
+			               // data: 'cs_name=' + $('#search').val(),
+			                data: 'prof_id=' + profid,
+			                success: function(msg)
+			                {
+			                 // alert(msg);
+			                   $('#result').html(msg);
+			                 	//var imag = "<img src='"images/st.gif"'/>";
+			                 	var imag = "<img "
+			                     + "src='" + "data:image/jpg;base64,"
+			                     + msg + "'/>";	 
+			                     
+			                  
+			                     
+			                     
+			                      $(imag).appendTo("#img_prof");
+			                    //alert(imag);				                  
+			                 }       		                    
+			
+			   		 }); // Ajax Call
+			    
+            	/* end of code */
+            	
+            	/* Get the image */
+            	
+            	 $.ajax({
+			                type: "GET",
+			                //contentType: 'application/json',
+               				//dataType: "json",
+			               url: "http://192.168.56.101/profilepageprofdata.php",
+			                //url: "http://192.168.56.101/imagetest.php",
+			               // data: 'cs_name=' + $('#search').val(),
+			                data: 'prof_id=' + profid,
+			                success: function(data)
+			                {
+			                   //alert(data);
+			                   
+			                   	
+			                   //	var profdata = "<div>"+val.profname +"<br/>"+ val.profdetails+"</div>";
+			                   //	alert(profdata);
+			                   	
+			                   	
+			                   	// remove  [ ]
+			                   	var obj = jQuery.parseJSON(data.substring(1,data.length-1));
+			                   	var profdata = "<div><SPAN class="+"blog2"+"><strong>"+obj.profname+"</strong></SPAN><br/><SPAN class="+"blog2"+"><strong><b>"+obj.profdepartment+"</b></SPAN><br/><SPAN class="+"blog1"+"><strong>"+obj.profdetails+"</SPAN><br/><br/><br/><br/></div>";
+			                   	//alert(profdata);
+			                   	//var b = eval(data)[0];
+  								//alert(b.profname);
+			                   	var profname = "<div> Professor Name : &nbsp"+ obj.profname +"</div>";
+			                   		$(profname).appendTo("#prof_n");
+			                   	$(profdata).appendTo("#prof_exp");
+			                  
+			                   
+			                 			                 				                  
+			                 }       		                    
+			
+			    	}); // Ajax Call
+            	
+            	/* end of code */
+            	
+            	/* Starting of code - Course Combobox */
+            	
+            	  $.ajax({ 
+            				type: "GET",
+            				 url: "http://192.168.56.101/profpagecoursecombo.php",
+			                data: 'prof_id=' + profid,
+			                success: function(data)
+			                {
+			                  //alert(data);
+			                   var tmp = data.substring(1,data.length-1);
+			                	//alert(tmp);
+			                	var tmp5 = tmp.replace(/},{/g,'} DELIMIT {');
+			                	//alert(tmp5);
+			                	var tmp6 = tmp5.split(" DELIMIT ");
+			                	
+			                	//alert(tmp6);
+			                	var tbc="";
+			                	for (var i in tmp6) {
+			                	
+			                		var obj = jQuery.parseJSON(tmp6[i]);
+			                		var cn = "<option value="+obj.cnumber+">"+obj.cnumber+" </option>"
+			                		//course_num = obj.cnumber
+			                		//alert(cn);
+			                		//$(cn).appendTo("#coursecombo");
+			                		tbc += cn;	
+			                	
+			                	}
+			                	document.getElementById("course_combo").innerHTML = tbc;
+			                			                   
+			                 }   
+            	 	});
+            	
+            	
+            	/* Ending of code - course combobox */
+            	
+            		/* starting of code - Sem combobox 
+            	
+            		 $.ajax({ 
+            				type: "GET",
+            				 url: "http://192.168.56.101/profpagesemcombo.php",
+			                data: 'prof_id=' + profid,
+			                success: function(data)
+			                {
+			                  // alert(data);
+			                   var test = data.substring(1,data.length-1);
+			                	//alert(test);
+			                	var test1 = test.replace(/},{/g,'} DELIMIT {');
+			                	//alert(test1);
+			                	var testresult = test1.split(" DELIMIT ");
+			                	
+			                	//alert(testresult);
+			                	var tbc1="";
+			                	for (var i in testresult) {
+			                	
+			                		var obj1 = jQuery.parseJSON(testresult[i]);
+			                		var cs = "<option value="+obj1.csem+">"+obj1.csem+"</option>"
+			                		//course_num = obj1.csem;
+			                		//alert(cs);
+			                		//$(cn).appendTo("#coursecombo");
+			                		tbc1 += cs;	
+			                	
+			                	}
+			                	document.getElementById("semdetails").innerHTML = tbc1;
+			                			                   
+			                 }   
+            		 });
+            	
+            	ending of code - sem combobox */
+            	
+            	/* starting of code - get the course details */
+            	
+            	 $.ajax({ 
+            				type: "GET",
+            				 url: "http://192.168.56.101/profilepagecourses.php",
+			                data: 'prof_id=' + profid,
+			                success: function(data)
+			                {
+			                
+			                	//alert(data);
+			                   
+			                   
+			                 }   
+            	 });
+            	
+            	/* end of code - get the course details */  
+            	
+            	/* starting of code - get the chart details */
+            	
+            	 $.ajax({ 
+            	 
+            	 		type: "GET",
+			               
+			               url: "http://localhost:8888/phpfiles/profilepagechart.php",
+			                
+			                data: 'prof_id=' + profid,
+			                success: function(data)
+			                {
+			                	
+			                	var tmp = data.substring(1,data.length-1);
+			                	//alert(tmp);
+			                	var tmp2 = tmp.replace(/},{/g,'} DELIMIT {');
+			                	
+			                	var tmp3 = tmp2.split(" DELIMIT ");
+			                	
+			                	for (var i in tmp3) {
+								 // alert(tmp3[i]);
+								  
+								  
+			                  		var obj = jQuery.parseJSON(tmp3[i]);
+			                   		//var profdata = "<div>"+obj.ratyear+"<br/>"+obj.teaching+"</div>";
+			                   		//alert(profdata);
+			
+									downloaded_latest_semesters.push(obj.ratyear);
+								  	downloaded_latest_scores.push(obj.teaching);
+								  
+								  	//
+								}
+			                	
+			                //	alert(downloaded_latest_scores);
+			                //	alert(downloaded_latest_semesters);
+			                   
+			                   	latest_scores = downloaded_latest_scores;
+			                   	latest_semesters = downloaded_latest_semesters;
+			                   	
+			         // document.getElementById("professor_chart").style.bgcolor = "white"; 
+			         
+			           var imag1 = "<img "
+			                     + "src='" + "" + "images/st.gif" + "'/>";	  
+			              	
+			          var tablecontents = "";
+                    tablecontents = "<table>";
+                    for (var row = 0; row < maxNumOfStars + 1/* add one for semester description */; row++)
+                    {
+                        tablecontents += "<tr>";
+                        for (var col = latest_scores.length - 1; col >= 0; col--)
+                        {
+                            if (row < maxNumOfStars)
+                            {
+                                if ((maxNumOfStars - row) - 0.5 <= latest_scores[col])
+                                {
+                                   // tablecontents += "<td>" + "*" + "</td>";
+                                    tablecontents += "<td>" + imag1 + "</td>";
+                                }
+                                else
+                                {
+                                    tablecontents += "<td>" + " " + "</td>";
+                                }
+                            }
+                            else
+                            {
+                                tablecontents += "<td>" + latest_semesters[col] + "</td>";
+                            }
+                        }
+                        tablecontents += "</tr>";
+                    }
+                    tablecontents += "</table>";
+                    document.getElementById("professor_chart").innerHTML = tablecontents;
+			                 			                 				                  
+			                 }       
+            	 
+            	 
+            	 });
+            	 
+            	 /* end of code - get the chart details */  
+            	
+                /* call the php that has the php array which is json_encoded */
+                $.getJSON('http://moving2cloud.herokuapp.com', function(data) {
+                    /* data will hold the php array as a javascript object */
+                    $.each(data, function(key, val) {
+                        //var div_data = "<div>" + val.name + " " + val.address + "</div>";
+                        //$(div_data).appendTo("#9lessonsLinks");
+                        /* $('#name').html(name); */
+                        //
+                        // Chu-Chi: 
+                        //
+                        // mod 6 to get the rating for the chart ...
+                        //
+                        // put each one into a text area
+                        //
+
+                        var chart_label = val.name + "\n" + val.address;
+                        //var chart_data = "<div>"+chart_label.length%(maxNumOfStars+1)+"</div>";
+
+                        //latest_semesters.push(chart_label);
+                        //latest_scores.push(chart_label.length % (maxNumOfStars + 1));
+                        total_samples += chart_label.length;
+
+                        //$(chart_data).appendTo("#professor_chart");
+						
+                        var todo_str = "No Data Loaded";
+                        var comment_data =
+                                "<div>" +
+                                "val.user_id" + "@" + "val.timestamp" +
+                                "<textarea rows=\"4\" cols=\"50\" readonly>" +
+                                "val.comment" +
+                                "</textarea>" +
+                                "</div>";
+                      // $(comment_data).appendTo("#professor_comments"); 
+                    });
+
+				//	alert(latest_scores.length);
+					//alert(latest_scores);
+
+/*
+                    var tablecontents = "";
+                    tablecontents = "<table>";
+                    for (var row = 0; row < maxNumOfStars + 1; row++)
+                    {
+                        tablecontents += "<tr>";
+                        for (var col = latest_scores.length - 1; col >= 0; col--)
+                        {
+                            if (row < maxNumOfStars)
+                            {
+                                if ((maxNumOfStars - row) - 0.5 <= latest_scores[col])
+                                {
+                                    tablecontents += "<td>" + "*" + "</td>";
+                                }
+                                else
+                                {
+                                    tablecontents += "<td>" + " " + "</td>";
+                                }
+                            }
+                            else
+                            {
+                                tablecontents += "<td>" + latest_semesters[col] + "</td>";
+                            }
+                        }
+                        tablecontents += "</tr>";
+                    }
+                    tablecontents += "</table>";
+                    document.getElementById("professor_chart").innerHTML = tablecontents;
+                    */
+                });
+            });
+            
+           
+            
+                   
+	    	  /* Starting of code - validate user */
+            
+            $(function() {
+	    		$(".login_button").click(function(e) {
+	    		 	e.preventDefault();
+	    				
+	    			var username = document.getElementById("username").value;
+	    		 	var password = document.getElementById("password").value;
+	    		 	uname = username;
+	    		 	pass = password;
+	    		 //	alert(username);
+	    		 	//alert(password);
+	    		 	var datastring = {uname:uname,pass:pass};
+	    		 	
+            			 
+            			 $.ajax({
+						        url: "http://192.168.56.101/uservalidate.php",
+						        type: "get",
+						        data: datastring,
+							        success: function(data){
+							       // alert(data);
+							            						      		
+							      		var obj1 = jQuery.parseJSON(data.substring(1,data.length-1));
+							      		var studentID = obj1.s;
+							      		//alert(studentID);
+							        
+										//alert("before url");
+								        //studentID = 11;// todo: hardcode for now. should be dya\naoic */
+							           // alert("suc");
+										$(".content3").css("display","block");
+										$(".content2").css("display","none");
+																	            
+							        },
+							        error:function(){
+							            alert("failure");
+	    		 							$(".content3").css("display","none");
+							        }
+						  });
+						  
+						  
+						  /* Starting of code - To fill the comment area */
+						  
+						  
+						 // alert("Starting of code. For filling comment area");	
+            			 var st_id = studentID;
+		            	 var p_id = prfidglobal;
+		            	 //alert(st_id);
+		            	// alert(p_id);
+		            	var st_id = 1;
+		            	 var datastring = {st_id:st_id,p_id:p_id};
+		            	 
+		            	  $.ajax({
+		            	  
+		            	   url: "http://192.168.56.101/profpagecomments.php",
+						        type: "get",
+						        data: datastring,
+							        success: function(data){
+							        //alert(data);
+							        //alert("from commetns area");
+							        
+							        var maindata = data.substring(1,data.length-1);
+					                	//alert(tmp);
+					                	var seperator = maindata.replace(/},{/g,'} DELIMIT {');
+					                	
+					                	var finalop = seperator.split(" DELIMIT ");
+					                	
+					                	//alert(finalop);
+					                	for (var i in finalop) 
+					                	{
+											 // alert(finalop[i]);
+											  								  
+						                  		var obj = jQuery.parseJSON(finalop[i]);
+						                   		 var todo_str = "No Data Loaded";
+							                        var comment_data =
+							                                "<div>" +
+							                               	obj.user + "@" + obj.time +
+							                                "<textarea rows=\"4\" cols=\"50\" readonly>" +
+							                                obj.comment +
+							                                "</textarea>" +
+							                                "</div>";
+							                        $(comment_data).appendTo("#professor_comments");
+											  	
+											}
+							        
+							        },
+							        error:function(){
+							            alert("failure");
+	    		 							$(".content3").css("display","none");
+							        }
+		            	  
+		            	  
+		            	  
+		            	  });
+						  
+						  /* ending  of code - To fill the comment area */ 
+	    		 	
+	    		 	/*
+	    		 	if(username == "dbusername" && password == "dbpasscode"){
+	    		 		$(".content3").css("display","block");
+	    		 		document.getElementById("username").value = "";
+	    		 		document.getElementById("password").value = "";
+	    		 		$(".content2").css("display","none");
+	    		 	}
+	    		 	else{
+	    		 		$(".content3").css("display","none");
+	    		 	}
+	    		 	*/
+	    		
+	    			});
+	    	
+	    		});;
+	    	
+	    	   /* Ending of code - validate user */
+            
+            /* starting of Code - to laod the course name in test box */
+            var coursecontent = "";
+             function set(){
+             
+             	var firstDropVal = $('#course_combo').val();
+            	 //alert("before selection");
+            	 
+            	  $.ajax({ 
+            				type: "GET",
+            				 url: "http://192.168.56.101/profpagecoursename.php",
+			                data: 'c_number=' + firstDropVal,
+			                success: function(data)
+			                {
+			                	//alert(data);
+			                	 var obj_cnumber = jQuery.parseJSON(data.substring(1,data.length-1));
+			                	 var coursename_text = obj_cnumber.cname;
+			                	// alert(coursename_text);
+			                	 var object = document.getElementById('course_textbox');
+    								object.value=coursename_text;
+			                	// document.getElementById("course_textbox").innerHTML = coursename_text;
+			                   
+			                 }   
+            	 });
+             
+             }
+               
+            /* ending of Code - to laod the course name in test box */
+            
+            /* starting of code - posting data of rating */
+            $(function() {
+	    		$(".submit_button").click(function(e) {
+	    		
+	    			e.preventDefault();
+	    			
+	    			//alert(prfidglobal);
+	    			var pro_id = prfidglobal;
+	    			//alert(pro_id);
+	    			var stu_id = studentID;
+	    			//alert("Now Showing studnet ID");
+	    			//alert(stu_id);
+	    		
+	    			//$("#result").html('');
+	    			//var values = $("#form").serialize();
+	    			var e = document.getElementById("semdetails");
+	    			var semester = e.options[e.selectedIndex].text;
+	    			
+	    			var f = document.getElementById("course_combo");
+	    			var course_id = f.options[f.selectedIndex].text;
+	    			
+	    			var course_name = document.getElementById("course_textbox").value;
+	    			//alert(course_name);
+	    			var g = document.getElementById("qu1");
+	    			var q_01 = g.options[g.selectedIndex].value;
+	    			//alert(q_01);
+	    			var h = document.getElementById("qu2");
+	    			var q_02 = h.options[h.selectedIndex].value;
+	    			
+	    			var k = document.getElementById("qu3");
+	    			var q_03 = k.options[k.selectedIndex].value;
+	    			
+	    			var p = document.getElementById("qu4");
+	    			var q_04 = p.options[p.selectedIndex].value;
+	    			
+	    			var comments_area = document.getElementById("carea").value;
+	    			//alert(comments_area);
+	    			
+	    			var datastring = {semester:semester,course_id:course_id,course_name:course_name,q_01:q_01,q_02:q_02,q_03:q_03,q_04:q_04,comments_area:comments_area,pro_id:pro_id,stu_id:stu_id};
+	    			//alert(datastring);
+	    			if(semester != "" && course_id != "" && course_name != "" && q_01 != "" && q_02 != "" && q_03 != "" && q_04 != "" && comments_area != "")
+	    			{
+	    				/* to chec if any box is empty or not */
+		    			 	$.ajax({
+					        url: "http://192.168.56.101/postdata.php",
+					        type: "post",
+					        data: datastring,
+						        success: function(data){
+						            alert(data);
+						            $("#afterpost").html('Submitted successfully');
+						        },
+						        error:function(){
+						            alert("failure");
+						            $("#afterpost").html('There is error while submit');
+						        }
+					    	  });
+					   }
+					   else
+					   {
+					   		alert("You are missing any filed..!!");
+					   }		
+				
+	            });
+            });
+            /* ending of code - posting data of rating*/
+            
+
+        </script>
+<title>Professor Rating Display Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="styles/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="styles/coin-slider.css" />
+<script type="text/javascript" src="js/cufon-yui.js"></script>
+<script type="text/javascript" src="js/cufon-georgia.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/coin-slider.min.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="header">
+			<div class="header_resize">
+				<div class="menu_nav">
+					<ul>
+						<li><a href="index.html"><span>Home Page</span></a></li>
+						<!--  li><a href="support.html"><span>Support</span></a></li -->
+						<li><a href="Registration.html"><span>Registration</span></a></li>
+						<li class="active"><a href="index.html"><span>Blog</span></a></li>
+						<li><a href="contact.html"><span>Contact Us</span></a></li>
+					</ul>
+				</div>
+				<div class="logo">
+					<h1>
+						<a href="support.html">Professors and<span> Course
+								evaluation</span></a>
+					</h1>
+				</div>
+				<div class="clr"></div>
+				<div class="slider">
+					<div id="coin-slider">
+						<a href="#"><img src="images/slide1.jpg" width="960"
+							height="360" alt="" /><span> Hello Students......!!!
+								Welcome to Professor Portal. This application will help you to
+								get the understanding of the courses and respective
+								professors...!!</span></a> <a href="#"><img src="images/slide4.jpg"
+							width="960" height="360" alt="" /><span> Hello
+								Students......!!! Welcome to Professor Portal. This application
+								will help you to get the understanding of the courses and
+								respective professors...!!</span></a> <a href="#"><img
+							src="images/slide5.jpg" width="960" height="360" alt="" /><span>
+								Hello Students......!!! Welcome to Professor Portal. This
+								application will help you to get the understanding of the
+								courses and respective professors...!!</span></a>
+					</div>
+					<div class="clr"></div>
+				</div>
+				<div class="clr"></div>
+			</div>
+			
+		</div>
+		 
+      </div>
+		<div class="content">
+			<div class="content_resize">
+				<div class="mainbar">
+					<div class="article">	
+									
+						<h2>
+							<span>Rating Display</span> Page
+						</h2>
+						
+						<!-- *************************************************************  -->
+						
+						<!--   <p class="infopost">Posted <span class="date">on 11 sep 2018</span> by <a href="#">Admin</a> &nbsp;&nbsp;|&nbsp;&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a></p> -->
+						<div class="clr"></div>
+						<div class="img" id="img_prof">							
+							<!-- <img src="images/h_chang.jpg" width="178" height="185" alt="" class="fl" />  -->
+							 <!--   <img src="http://192.168.56.101/images/jg.jpg" alt="" class="fl" /> -->
+						</div>
+						<SPAN class="blog2"><div class="post_content" id="prof_exp">
+							
+							<!-- Data comes here from database  -->
+							
+							<!--  
+							Henry Chang (1991)<br /> 
+							Chair, Computer System Engineering Programs<br /> 
+							D.C,E., Northwestern Polytechnic University, CA 2008<br /> 
+							M.B.A., Northwestern Polytechnic University, CA 2010<br />
+							M.A.C.S., University of Texas - Austin, TX, 1983<br /> 
+							B.S.E.E., Tatung Institute of Technology, Taiwan, 1974<br /> 
+							Network security, embedded engineering, wireless engineering, image processing, object-oriented design and analysis, and Internet software development and applications.<br />
+							-->
+
+							<!-- <p class="spec"><a href="#" class="rm">Read more</a> <a href="#" class="com">Comments <span>11</span></a></p>  -->
+							<br />
+
+						</div></SPAN>
+
+
+						<div id="professor_profile"></div>
+
+						<!-- *************************************************************  -->
+
+
+						<div id="dynamic_professor_info">
+							<!--div id="9lessonsLinks">
+            </div-->
+            	
+            		
+            			
+            
+            	
+            
+							<SPAN class="blog2"><div id="professor_chart"></div></SPAN>
+							<div id="professor_chart_criteria">
+								<div id="total_students"></div>
+								<br />
+								<div id="criteria_prefix">Rating from the students:</div>
+								<div id="criteria_suffix">
+									<!--  form action="" method="GET">
+										<input type="checkbox" name="criteria_cbx" value="working">
+										111 who have working experience</br> <input type="checkbox"
+											name="criteria_cbx" value="graduate"> 111who are
+										graduate students</br> <input type="checkbox" name="criteria_cbx"
+											value="undergraduate"> 11who are undergraduate
+										students</br> <input type="submit" value="Submit"> <input
+											id="clickMe" type="button" value="clickme"
+											onclick="doFunction();">
+									</form -->
+								</div>
+								<br />
+							</div>
+  
+						</div>
+
+					</div>
+					<div class="clr"></div>
+				</div>
+			
+
+			</div>
+			<div class="clr"></div>
+		</div>
+			
+		
+		
+		<div class="content2">
+					<div class="content_resize">
+				<div class="mainbar">
+					<div class="article">
+											
+											
+							<hr>
+							<!-- username and pasordd.... -->
+							<!--  <a href="about.html">Click me to get register.</a> -->
+							 
+							<SPAN class="blog1"> User Name: <input id="username" name="username" type="text" placeholder="Enter Username"> </SPAN><br/>
+							<SPAN class="blog1">Password : &nbsp&nbsp<input id="password" name="passwrod" type="password" placeholder="Enter Password"></SPAN><br/>
+							&nbsp<input name="login" type="submit" value="click to log in to put/see comments" class="login_button"/>
+							<a href="about.html">New User ?</a> &nbsp&nbsp <a href="contact.html">Forget Password ?</a>
+							<div id="afterpost"></div>
+							<hr>
+
+							
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<div class="content3">
+			<div class="content_resize">
+				<div class="mainbar">
+					<div class="article">
+
+			 <form id="form" name="form" action="" method="post">
+				<p><strong>  
+							 
+            <SPAN class="blog1"><strong><table id= "userdata" border="2"  width="950">
+  			
+           	<tr><td colspan=2 align="center"> <strong style="font-size: 18px;">Give your details and feedback about professor..!!</strong></tr></td>
+            	
+            	<tr>
+            	<td><SPAN class="blog1"><strong> 
+            		 Semester:
+			           	 <select name="semester" id="semdetails">  
+			                 <option value="2014Spring">2014 Spring</option>
+			                <option value="2014Summer">2014 Summer</option>
+			           		<option value="2013Spring">2013 Spring</option>
+			                 <option value="2013Summer">2013 Summer</option>
+			                  <option value="2013Fall">2013 Fall</option>
+			                  <option value="2012Spring">2012 Spring</option>
+			                 <option value="2012Summer">2012 Summer</option>
+			                <option value="2012Fall">2012 Fall</option>
+			                <option value="2011Spring">2011 Spring</option>
+			                 <option value="2011Summer">2011 Summer</option>
+			                 <option value="2011Fall">2011 Fall</option>
+			            </select>
+            	</strong></SPAN></td>            		
+            	</tr>
+            	<tr>
+            	<td><SPAN class="blog1">
+            	Course Number:
+            		<!--  <input type="text" name="course_number"/>  -->
+			               <select name="course_id" id="course_combo" onchange="set()"> 
+			               <!-- <option value="__"> </option> 
+			                 <option value="CS480">CS480</option> 
+			                 <option value="CS557">CS557</option>  -->
+			                 
+			           </select>  
+            	</SPAN>
+            	</td>            	
+            	</tr>
+            	<tr>
+            	<td><SPAN class="blog1">Course Name:
+            		 <input type="text" width="150" name="course_name" id="course_textbox"/> 
+			          <!--   <select name="course_id">  
+			                <option value="__"> </option> 
+			                <option value="CS480">CS557</option>
+			                 <option value="CS557">CS589</option> 
+			             </select>  -->
+            	</SPAN>
+            	</td>            	
+            	</tr>
+            	<tr>
+            	<td><SPAN class="blog1"><strong>            	
+            	 <div id="prof_n"></div>        
+            	</strong></SPAN></td>            	
+            	</tr>
+            	
+            	<tr>
+            	<td colspan=2><SPAN class="blog1"><strong>
+            	 Q1: How well will you recommend this professor to his/her teaching style ?
+			            <select name="question_01" id="qu1" >
+			                <option value="__"> </option>
+			                <option value="0">0 (forget about it)</option>
+			                <option value="1">1</option>
+			                <option value="2">2</option>
+			                <option value="3">3</option>
+			                <option value="4">4</option>
+			                <option value="5">5 (will definitely recommend to other students)</option>
+			            </select>
+            	</strong></SPAN></td>            	
+            	</tr>
+            	<tr>
+            	<td colspan=2><SPAN class="blog1"><strong>
+            	 Q2: How well will you recommend this professor to his/her knowledge for this course ?
+			            <select name="question_02" id="qu2">
+			                <option value="__"> </option>
+			                <option value="0">0 (forget about it)</option>
+			                <option value="1">1</option>
+			                <option value="2">2</option>
+			                <option value="3">3</option>
+			                <option value="4">4</option>
+			                <option value="5">5 (will definitely recommend to other students)</option>
+			            </select>
+            	</strong></SPAN></td>            	
+            	</tr>
+            	<tr>
+            	<td colspan=2><SPAN class="blog1"><strong>
+            	 Q3: How well will you recommend this professor for the course material of this course ?
+			            <select name="question_03" id="qu3">
+			                 <option value="__"> </option>
+			                <option value="0">0 (forget about it)</option>
+			                <option value="1">1</option>
+			                <option value="2">2</option>
+			                <option value="3">3</option>
+			                <option value="4">4</option>
+			                <option value="5">5 (will definitely recommend to other students)</option>
+			            </select>
+            	</strong></SPAN></td>            	
+            	</tr>
+            	<tr>
+            	<td colspan=2><SPAN class="blog1"><strong>
+            	 Q4: Will you recommend this professor to other student ?
+			            <select name="question_04" id="qu4">
+			                 <option value="__"> </option>
+			                <option value="0">0 (forget about it)</option>
+			                <option value="1">1</option>
+			                <option value="2">2</option>
+			                <option value="3">3</option>
+			                <option value="4">4</option>
+			                <option value="5">5 (will definitely recommend to other students)</option>
+			            </select>
+            	</strong></SPAN></td>
+            	</tr>
+            	<tr>
+            	<td><SPAN class="blog1"><strong>
+            		<!-- button type="button">Post Data!</button>&nbsp&nbsp<button type="button">Retrive Data!</button>  -->
+            		Put your Comments here : &nbsp<textarea rows="3" name="comments_area" cols="10" id="carea" placeholder="Describe your professor....!!!"></textarea>
+            	</strong></SPAN></td>
+            	</tr> 
+            	<tr>
+            	<td><strong>
+            	<!-- <button type="button" id="post_rating">Post Data!</button>  -->
+            	<input name="mySubmit" type="submit" value="Submit" class="submit_button"/><div id="afterpost"></div>
+            		</strong></td>
+            	</tr>           	
+      		<tbody>
+
+      	 </tbody>
+  		 </table> 
+  		 
+  		 </strong></SPAN></p>
+  		 </form>
+							<!-- <table id= "coursedata" border="1">
+							<tr>
+									<td>Select The Course Number
+									</td>
+									<td>
+										 Course Name       
+									</td>
+								</tr>
+								<tr>
+									<td> <select id="coursecombo" >
+									        <option value="select"></option>
+									     </select>
+									</td>
+									<td>
+										 <input type="text" name="c_name" id="course_name"/>       
+									</td>
+								</tr>
+							</table>  -->
+								
+							 <div id="professor_comments"></div>
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="footer_resize">
+			<p class="lf">
+				Copyright &copy; <a href="#">professor portal</a>. All Rights
+				Reserved
+			</p>
+			<!--  <p class="rf">Get More <a target="_blank" href="http://www.free-css.com/">Free CSS Templates</a> By <a target="_blank" href="http://www.dreamtemplate.com/">DreamTemplate</a></p> -->
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

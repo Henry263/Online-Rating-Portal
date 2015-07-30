@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Welcome to NPU e-Horizon</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/indexpage.css">
+        <!-- <link href="css/model.css" rel="stylesheet" type="text/css"/> -->
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+        <script src="scripts/banner_rotate.js" type="text/javascript"></script>
+        <script src="scripts/jquery.cycle2.min.js" type="text/javascript"></script>
+
+        <script src="scripts/indexpage.js" type="text/javascript"></script>
+        <script src="scripts/importprof.js" type="text/javascript"></script>
+        <script src="scripts/importcourses.js" type="text/javascript"></script>
+        <script src="scripts/sendmail.js" type="text/javascript"></script>
+        <script src="scripts/login.js" type="text/javascript"></script>
+        <script src="scripts/createaccount.js" type="text/javascript"></script>
+        <!--<script src="scripts/registration.js"></script>-->
+        <script type="text/javascript" src="scripts/jquery-1.4.2.min.js"></script>
+        <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="scripts/jquery.leanModal.min.js" type="text/javascript"></script>
+
+        <script src="scripts/jquery.validate.min.js" type="text/javascript"></script>
+
+        <script language='javascript'>
+            function showComments(i) {
+                alert("hi");
+                window.location.href = "viewcomments.html";
+                window.submit();
+            }
+        </script>
+
+    </head>
+    <body>
+        <div class="background-image"></div>
+        <div class="content-con">
+            <div class="heading">
+                <header><h1>NPU-Horizon</h1></header>
+            </div>
+            <div class="slideimages">
+                <div class="heading-rotater">
+
+                    <div class="cycle-slideshow"
+                         data-cycle-loader="true"
+                         >
+                        <!-- prev/next links -->
+                        <div class="cycle-prev"></div>
+                        <div class="cycle-next"></div>
+                        <img src="images/04.jpg">
+                        <img src="images/slide_8.jpg">
+                        <img src="images/slide_9.jpg">
+                    </div>
+                </div>
+
+                <div class="heading-tabs">
+                    <nav class="back-head">
+                        <ul>
+                            <li class="top-nav"><a id="a" href="#">Home</a></li>
+                            <li class="top-nav"><a id="b" href="#">Professor's Portfolio</a></li>
+                            <li class="top-nav"><a id="c" href="#">Rating</a></li>
+                            <li class="top-nav"><a id="d" href="#">Forum</a></li>
+                            <li class="top-nav"><a id="e" href="#">Contact US</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="f-border">
+                    <article class="f-border f-backside f-color a-width">
+                        <div id="home"> <div class="news_left_title"><h3>Important Announcement:</h3></div>
+                            <div class="news_right_data back_news_slider img-radius" id="newsslide">
+                                <ul id="NewsSlider">
+
+                                </ul>
+                            </div>
+
+                            <div class="left_banner_img">
+                                <ul id="exampleSlider">
+                                    <li><img class="banner_shape" src="images/banner_1.jpg" alt=""/></li>
+                                    <li><img class="banner_shape" src="images/banner_2.jpg" alt=""/></li>
+                                    <li><img class="banner_shape" src="images/banner_3.jpg" alt=""/></li>
+                                    <li><img class="banner_shape" src="images/banner_4.jpg" alt=""/></li>
+                                    <li><img class="banner_shape" src="images/banner_5.jpg" alt=""/></li>
+                                </ul>
+                            </div>
+                            <div class="right_banner_dec">
+                                <h2 id="wso" class="title_heading">Welcome To NPU e-Horizen</h2>
+                                <h3>Ever finish the semester and ask yourself, "I wonder if there is a website where I could rate my professors so I
+                                    could help future students pick the best teachers and classes?" If so, you are in luck, because NPU Horizon
+                                    provides students with a detailed view of a teacher before you even register for the course so you know exactly
+                                    what you’re getting into.</h3>
+                            </div>
+                            <br>
+                        </div>
+                        <div id="profile">
+                            <h2 id="wwao">Professor's Profile. </h2>
+                            <div id="profile_prof">
+
+                            </div>
+                        </div>
+                        <div id="rating" class="f-style">
+                            <h2 id="wwac">Rating of Professor:</h2>
+                            <div id="prof_name_st" class="prof_heading"></div><br>
+                            <div id="prof_exp" class="f-style-small"></div><br><br><br>
+                            <div id="professor_chart" class="f-style-small chart-top-margin"></div>
+                            <br>
+                            <div><a id="givefeedback" href="#feedbackmodel" class="table-font feedback_link_style">Give Feedback & Rating</a> </div>
+                            <br>
+                            <div>Thoughts of students about professor.</div><br>
+                            <div id="professor_comments" class="f-style-small"></div>
+                            <br>
+
+                            <div id="feedbackmodel"  class="upload-form">
+                                <form id="feddbackform" name="feedbackform" method="post" action="index.html">
+                                    <br> <h3 class="replace-text">Provide your feedback..!</h3>
+                                    <a href="#" class="close hidemodal" title="Close Window"><img src="images/app-close-button.png" alt="Close"></a>
+                                    <table>
+                                        <tr>
+                                            <td><label for="CourseNum" class="overrite-label">Course Number:</label></td>
+                                            <td><select name="course_id" id="course_combo" onchange="set()">
+                                                    <option value="selectcoursenumber">Course Number</option>
+
+                                                </select>
+                                                <div id="coursenum-error"> </div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="CourseName" class="overrite-label">Course Name:</label></td>
+                                            <td><input type="text" name="CourseName" id="course_textbox" class="txtfield width-textbox" tabindex="1" placeholder="Select the course number to view the course name" readonly>
+                                                <div id="coursename-error"> </div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="Semester" class="overrite-label">Semester:</label></td>
+                                            <td>
+                                                <select name="semester" id="semdetails">
+                                                    <option value="2014Spring">2014 Spring</option>
+                                                    <option value="2014Summer">2014 Summer</option>
+                                                    <option value="2013Spring">2013 Spring</option>
+                                                    <option value="2013Summer">2013 Summer</option>
+                                                    <option value="2013Fall">2013 Fall</option>
+                                                    <option value="2012Spring">2012 Spring</option>
+                                                    <option value="2012Summer">2012 Summer</option>
+                                                    <option value="2012Fall">2012 Fall</option>
+                                                    <option value="2011Spring">2011 Spring</option>
+                                                    <option value="2011Summer">2011 Summer</option>
+                                                    <option value="2011Fall">2011 Fall</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <td><label for="Q1" class="overrite-label">
+                                                    Q1: How well will you recommend this professor to his/her teaching style ?:
+                                                </label></td>
+                                            <td><select name="q1" id="qu1">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div id="q1-error"> </div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="Q2" class="overrite-label">
+                                                    Q2: How well will you recommend this professor to his/her knowledge for this course ?:
+                                                </label></td>
+                                            <td><select name="q2" id="qu2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div id="q2-error"> </div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="Q3" class="overrite-label">
+                                                    Q3: How well will you recommend this professor for the course material of this course ?:
+                                                </label></td>
+                                            <td><select name="q3" id="qu3">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div id="q3-error"> </div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="Q4" class="overrite-label">
+                                                    Q4: Will you recommend this professor to other student ?:
+                                                </label></td>
+                                            <td><select name="q4" id="qu4">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div id="q4-error"> </div></td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <td><label for="txtarea" class="overrite-label">
+                                                    Put your Comments here:
+                                                </label></td>
+                                            <td><textarea rows="3" name="comments_area" cols="10" id="carea" class="width-textar" placeholder="Describe your professor....!!!"></textarea>
+                                                <div id="q4-error"> </div></td>
+                                        </tr>
+                                    </table>
+                                    <!-- <div class="center"><input type="button" name="loginbtn" id="loginbtn" class="myButton" value="Log In" tabindex="3"></div> -->
+                                    <a href="#" class="overrite-link post-rating-btn" id="post_rating">Post Rating</a>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div id="post_window" class="bottom_margin_space">
+                            <h2>Welcome</h2> FirstName LastName
+                            <div id="post_window_heading"><h3>Please select the courses to create a new thread..!!</h3></div>
+                            <div class="left_course_number">
+                                <label for="CourseNum">Course Number:</label>
+                                <select name="course_post_window" id="courses_post_window" onchange="setcoursename_post()">
+                                    <option value="selectcoursenumber">Course Number</option>
+                                </select>
+                            </div>
+                            <div class="right_course_combo">
+                                <label for="CourseName">Course Name:</label>
+                                <input type="text" name="CourseName" class="width-textbox_post_window" id="course_textbox_post" tabindex="1" placeholder="Select the course number to view the course name" readonly>
+                            </div>
+                            <br>
+                            <div id="ask_in_thread" class="top_margin_space">
+                                        <label for="Reply_to_thread">Create a New Thread Or Ask question ?:</label>
+                                        <div class="top_margin_space">
+                                           <textarea rows="5" name="New_thread" cols="10" id="Create_new_thread" class="thread_reply_font width-textara thread__desc_table tb-border"  placeholder=""></textarea> 
+                                        </div>                                                                            
+                                        <div class="top_margin_space ">
+                                          <a href="#" class="thread_table_font create_button_margin border-color" onclick="create_newthread()">Create New Thread.</a>  
+                                        </div>
+                                    </div>
+                        </div>
+                        <div id="forum" class="bottom_margin_space">
+                            <h2 id="hycp">Online Discussion Forum</h2>
+                            <div id="forum">
+                                <!-- FirstName, LastName are retrieved from DB  -->
+                                <p>Welcome: FirstName LastName</p>                        
+                                <br>
+                                <div>
+                                    <a id="create_new_thread" href="#" onclick="callpost_window()" class="create_button_margin table-font feedback_link_style">     Click me to create new thread...!!     </a> 
+                                </div>
+                                <br>
+                                <div class="forum_left_course_number">
+                                    <label for="CourseNum">Course Number:</label>
+                                    <select name="course_sorum" id="courses_forum" onchange="getcourse()">
+                                        <option value="selectcoursenumber">Course Number</option>
+                                    </select>
+                                </div>
+                                <div class="forum_right_course_combo">                                    
+                                    <input type="text" name="CourseName" class="width-textbox_forum_window" id="course_textbox_forum" tabindex="1" placeholder="Select the course number to view the course name" readonly> 
+                                </div>                                
+                                <br>
+                                <br>
+                                <a href="#" onclick="backtocourse()">
+                                    <div class="thread-font">
+                                        Back to course selection
+                                        <img src="images/go_back_btn.png" alt=""/>
+                                    </div>
+                                </a>
+                                <br>
+                                <div id="course-details1">
+
+                                </div>
+                                <div id="thread_data">
+                                    <div>
+                                        <label for="Thread_Dec">Thread Description:</label> 
+                                    </div>
+
+                                    <div id="thread-dec-div">
+
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <label for="Thread_History">Thread History:</label> 
+                                    </div>
+                                    <div id="thread-history-div">
+
+                                    </div>
+                                    <div id="reply_to_thread" class="top_margin_space">
+                                        <label for="Reply_to_thread">Add My Comments:</label>
+                                        <div class="top_margin_space">
+                                           <textarea rows="5" name="thread_reply__area" cols="10" id="thead_reply" class="thread_reply_font width-textara thread__desc_table tb-border"  placeholder="Do you have better answer ?... Reply to this thread."></textarea> 
+                                        </div>                                                                            
+                                        <div class="top_margin_space ">
+                                          <a href="#" class="thread_table_font create_button_margin border-color" onclick="postmyreply()">Post My Answer.</a>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Contact" class="f-style"> <h2 id="wso">Contact Us</h2>
+
+                            Forget your ID or Password ?
+                            <div class="f-style" id="wsoc">
+                                Please Enter your email ID: <input type="text" name="emailID" id="emailid">
+
+                            </div>
+                            <br>
+                            <div>
+                                <input name="mySubmit" type="submit" value="Send E-Mail" class="submit_button"/>
+                            </div>
+
+                        </div>
+                    </article>
+                    <aside class="f-border f-backside f-color a-aside">
+                        <a id="modaltrigger" href="#loginmodal" class="table-font">Login</a> | <a id="createaccount" href="#signupmodel" class="table-font">Register Me</a>
+                        <h2>About NPU</h2>
+                        <p class="video-container">
+                            <iframe width="400" height="310"
+                                    src="http://www.youtube.com/embed/tr_6XfN5KUI?autoplay=0">
+                            </iframe>
+                        </p>
+
+                    </aside>
+                    <div id="loginmodal"  class="upload-form">
+                        <form id="loginform" name="loginform" method="post" action="index.html">
+                            <h3 class="replace-text">Sign In..!</h3><br>
+                            <a href="#" class="close hidemodal" title="Close Window"><img src="images/app-close-button.png" alt="Close"></a>
+                            <label for="username" class="overrite-label">Username:</label>
+                            <input type="text" name="username" id="username" class="txtfield" tabindex="1" placeholder="Username">
+                            <div id="username-error"> </div>
+                            <br>
+                            <label for="password" class="overrite-label">Password:</label>
+                            <input type="password" name="password" id="password" class="txtfield" tabindex="2" placeholder="Password">
+                            <div id="password-error"> </div>
+                            <br>
+                            <!-- <div class="center"><input type="button" name="loginbtn" id="loginbtn" class="myButton" value="Log In" tabindex="3"></div> -->
+                            <a href="#" class="loginButton">Sign In</a>
+                            <br><br>
+                            <div>
+                                <a href="#Contact" class="overrite-link" id="login_link">Forgot Password</a>
+                            </div>
+                            <br>
+                            <div>
+                                <a href="#signupmodel" class="overrite-link" id="signuplink">Register Me</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="signupmodel"  class="upload-form">
+                        <form id="signuppop" name="signupform" method="post" action="index.html">
+                            <!-- <div class="center"><input type="button" name="loginbtn" id="loginbtn" class="myButton" value="Log In" tabindex="3"></div> -->
+                            <h3 class="replace-text">Enter the required details!</h3><br>
+                            <a href="#" class="close hidemodal" title="Close Window"><img src="images/app-close-button.png" alt="Close"></a>
+                            <br>
+                            <table>
+                                <tr>
+                                    <td><label for="username" class="overrite-label">Username:</label></td>
+                                    <td><input type="text" name="username" id="usernames" class="txtfield" tabindex="1" placeholder="Choose Username">
+                                        <div id="username-error"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="emailid" class="overrite-label">Email:</label></td>
+                                    <td> <input type="email" name="email" id="mailid" class="txtfield" tabindex="1" placeholder="Email ID">
+                                        <div id="emailis-error"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="fname" class="overrite-label">FirstName:</label></td>
+                                    <td><input type="text" name="firstname" id="fname" class="txtfield" tabindex="1" placeholder="First Name">
+                                        <div id="fname-error"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="lname" class="overrite-label">LastName:</label></td>
+                                    <td><input type="text" name="lastname" id="lname" class="txtfield" tabindex="1" placeholder="Last Name">
+                                        <div id="lname-error"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="password" class="overrite-label">Password:</label></td>
+                                    <td><input type="password" name="password" id="pswd" class="txtfield" tabindex="2" placeholder="Password">
+                                        <div id="password-error"> </div> </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="repassword" class="overrite-label">Re-Enter Password:</label></td>
+                                    <td><input type="password" name="reenterpassword" id="repassword" class="txtfield" tabindex="2" placeholder="Re-Enter Password">
+                                        <div id="repassword-error"> </div> </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="course" class="overrite-label">Select course:</label></td>
+                                    <td><select id="course-select">
+                                            <option value="be">Bachelors</option>
+                                            <option value="ms">Masters</option>
+                                            <option value="mn">MBA</option>
+                                            <option value="job">Doing job</option>
+                                        </select>
+                                        <div id="course-error"> </div> </td>
+                                </tr>
+                                <tr>
+                                    <td> <a href="#" class="myButton">Create Account</a></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+                    <div id="backgroundPopup"></div>
+                </div>
+                <a href="#" class="back-to-top">Back to Top</a>
+            </div>
+    </body>
+</html>
